@@ -1,0 +1,17 @@
+{
+  "name": "vote-songs",
+  "version": "0.0.0",
+  "authors": [
+    "hyeinkkkk <hyein826@gmail.com>"
+  ],
+  "description": "vote about songs",
+  "main": "server.py",
+  "license": "hyein",
+  "dependencies": {
+    "angular": "*",
+    "angular-material": "*",
+    "angular-material-icons": "*",
+    "angular-sanitize": "*",
+    "angular-route": "*"
+  }
+}

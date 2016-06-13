@@ -1,0 +1,19 @@
+
+.starter-template {
+  padding: 40px 15px;
+  text-align: center;
+}
+.select-priority{
+  position: absolute;
+  z-index: 2;
+  left: 0vw;
+  height: 100%;
+}
+md-list-item > button {
+    width:100%;
+}
+
+md-dialog.md-default-theme, md-dialog{
+    opacity: 100%;
+    z-index: 10;
+}

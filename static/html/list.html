@@ -1,0 +1,18 @@
+
+    <div layout="column" flex="grow">
+        <md-list flex>
+        <md-list-item ng-repeat="item in songs" class="secondary-button-padding"  ng-click="selectSongs(item,$event)" width="100%">
+          <div layout="row" flex="grow" layout-align="center stretch">
+            <img max-height="100%" ng-show="item.check" class="select-priority" ng-src="static/images/ic_friend_{{item.priority}}.svg">
+            <img ng-src="static/images/appicon_120.png" >
+            <h3 flex>{{ item.name }}</h3>
+          </div>
+
+          <md-divider ></md-divider>
+        </md-list-item>
+        </md-list>
+
+  </div>
+  <div>
+      <md-button class="md-raised" ng-click="next()">OK</md-button>
+  </div>
