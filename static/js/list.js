@@ -1,52 +1,75 @@
-songApp.controller('ListController', function($scope,$http,$location,$mdDialog)
+songApp.controller('ListController', function($scope,$http,$location,$mdDialog,dataStorage)
     {
         $scope.modText = "Hello ";
-        $scope.songs = [
-            {name:"a",check:false,priority:0},
-            {name:"b",check:false,priority:0},
-            {name:"c",check:false,priority:0}
-        ];
-        $scope.priorityArr = new Array();
+        $scope.selectedArr = new Array();
+        maxCount = 3;
+
+
+        $http.get("/list")
+        .success(function(data,status,headers,config){
+            angular.forEach(data.song_list , function(song) {
+                song.check = false;
+            });
+            $scope.songs = data.song_list;
+            console.log("data??? list ?? ",data);
+        })
+        .error(function(data, status, headers, config){});
+
+
 
         $scope.selectSongs = function(item,event){
             if(!item.check){
                 item.check = true;
-                $scope.priorityArr.push(item);
-                item.priority = $scope.priorityArr.length;
-            }else if(item.check && item.priority == $scope.priorityArr.length){
+                $scope.selectedArr.push(item);
+                // item.priority = $scope.selectedArr.length;
+            }else{
+                console.log("$scope.selectedArr.indexOf(item)",$scope.selectedArr.indexOf(item));
+                $scope.selectedArr.splice($scope.selectedArr.indexOf(item),1);
                 item.check = false;
-                $scope.priorityArr.pop();
-                item.priority = 0;
             }
+            // else if(item.check && item.priority == $scope.priorityArr){
+            //     item.check = false;
+            //     $scope.selectedArr.pop();
+            //     item.priority = 0;
+            // }
 
-            if($scope.priorityArr.length == $scope.songs.length){
+            if($scope.selectedArr.length == maxCount){
+                dialogText = ""
+                angular.forEach($scope.selectedArr , function(song) {
+                    dialogText += song.title + ", ";
+                });
+
                 $mdDialog.show(
                   $mdDialog.confirm()
                     .title('선택완료!')
-                    .textContent('결정하셨습니까?')
+                    .textContent(  dialogText + '결정하셨습니까?')
                     .ariaLabel('Primary click demo')
                     .ok('완료')
                     .cancel('다시선택')
                     .targetEvent(event)
                 ).then(function() { // 결과 전송(OK)
-                    $http({
-                      url: "/submit",
-                      method: "POST",
-                      headers: { 'Content-Type': 'application/json' },
-                      data: JSON.stringify($scope.priorityArr)
-                    }).success(function(data) {
-                      console.log(data)
-                    });
-                    console.log('You decided to get rid of your debt.');
+                    dataStorage.set($scope.selectedArr);
+                    $location.path("/priority");
+                    // $http({
+                    //   url: "/submit",
+                    //   method: "POST",
+                    //   headers: { 'Content-Type': 'application/json' },
+                    //   data: JSON.stringify($scope.selectedArr)
+                    // }).success(function(data) {
+                    //   console.log(data)
+                    // });
                 }, function() { //다시선택(CANCEL)
-                    console.log('You decided to keep your debt.');
                 });
 
 
             }
 
-            console.log("priorityArr ",$scope.priorityArr);
+            console.log("priorityArr ",$scope.selectedArr);
         };
+
+        $scope.listenToMusic = function(event){
+            console.log("듣기 클릭 ");
+        }
 
         $scope.next = function(){
             if(confirm("제출하시겠습니까?")){
@@ -55,7 +78,7 @@ songApp.controller('ListController', function($scope,$http,$location,$mdDialog)
                   url: "/submit",
                   method: "POST",
                   headers: { 'Content-Type': 'application/json' },
-                  data: JSON.stringify($scope.priorityArr)
+                  data: JSON.stringify($scope.selectedArr)
                 }).success(function(data) {
                   console.log(data)
                 });
@@ -69,27 +92,33 @@ songApp.controller('ListController', function($scope,$http,$location,$mdDialog)
             }else{
                 console.log("cancel");
             }
-            // $mdDialog.show(
-            //   $mdDialog.alert()
-            //     .title('Primary Action')
-            //     .textContent('Primary actions can be used for one click actions')
-            //     .ariaLabel('Primary click demo')
-            //     .ok('Awesome!')
-            //     .targetEvent(event)
-            // );
         }
 
-        function DialogController($scope, $mdDialog) {
-              $scope.hide = function() {
+        $scope.showAdvanced = function(ev, item) {
+           $mdDialog.show({
+             controller: DialogController,
+             templateUrl: '../static/html/lyric-dialog.html',
+             parent: angular.element(document.body),
+             targetEvent: ev,
+             clickOutsideToClose:true,
+             locals: {
+               item: item
+             }
+           });
+
+         };
+
+        function DialogController($scope, $mdDialog,item) {
+            $scope.item = item;
+
+            $scope.hide = function() {
                 $mdDialog.hide();
-              };
-              $scope.cancel = function() {
+            };
+            $scope.cancel = function() {
                 $mdDialog.cancel();
-              };
-              $scope.answer = function(answer) {
-                $mdDialog.hide(answer);
-              };
-            }
+            };
+
+        }
 
 
 

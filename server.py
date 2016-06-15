@@ -1,12 +1,18 @@
 from flask import Flask
 from flask import render_template,request
 from flask.ext.sqlalchemy import SQLAlchemy
+# from models import Song,Album,Type
+from datetime import datetime
+from common import Common
+import json
+from json import JSONEncoder
+import loads,models
 
-import loads
 
 app = Flask(__name__)
 app.config.from_object('config')
 db = SQLAlchemy(app)
+common = Common()
 
 @app.route('/')
 def hello_world():
@@ -15,13 +21,25 @@ def hello_world():
 
 @app.route('/list')
 def get_list():
-    return render_template('list.html')
+    song_list = []
+
+    for song in models.Song.query.filter().all():
+        #db.session.query(models.Song).join(models.Album).filter().all():
+        s =  common.make_plain_dict(song)
+        s['album_photo'] = models.Album.query.filter(song.album_id == models.Album.id).first().photo
+        song_list.append(s)
+
+    # print("song_list ??? ",song_list)
+
+    return JSONEncoder(ensure_ascii=False).encode({'song_list':song_list})
+
 
 @app.route('/submit',methods=["GET", "POST"])
 def submit_voting():
     if request.method == "POST":
         print("****** data")
-        print(request.get_json())
+        for song in request.get_json():
+            print(" song ", song["priority"] , " : ", song["title"])
         return "OK"
 
 if __name__ == '__main__':
