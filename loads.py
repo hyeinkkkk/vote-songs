@@ -1,11 +1,11 @@
 # coding:UTF-8
 from os import path
 from xlrd import open_workbook
-from models import Keyword
+from models import Song,Album,Type
 from server import db,app
 
 
-xl_path = '/import/typo_config.xlsx'
+xl_path = '/import/song_data.xlsx'
 cwd_xl = path.dirname(path.abspath(__file__)) + xl_path
 dir_strings = cwd_xl.split("/")
 # dir_strings = [i for i in dir_strings if i!="db"]
@@ -22,35 +22,67 @@ class Singleton(type):
 
 class Excel(metaclass=Singleton):
     def load_wb(self, path):
-        print("path ? ",path)
         self.wb = open_workbook(path)
         return self.wb
 
-    def load_keyword(self, wb):
-        print("keyword ?? ", wb)
-        self.ws = wb.sheet_by_name("Keywords")
-        return self.ws
+    def create_all_data(self):
+        self.create_song_data(excel_session.load_wb(import_xl_path))
+        self.create_album_data(excel_session.load_wb(import_xl_path))
+        self.create_type_data(excel_session.load_wb(import_xl_path))
 
-    def load_keys(self, sheet):
-        print("n rows??? ",sheet.nrows)
-        self.keys = [ self.ws.cell_value(0,i) for i in range(sheet.ncols)]
 
-    def create_keyword_table(self):
-        print("@@@@@@@ ",excel_session.keys)
-        for row in range(excel_session.ws.nrows-2):
-            keyword_row = {}
-            for col, key in enumerate(excel_session.keys):
-                keyword_row[key] = excel_session.ws.cell_value(row+1, col)
+    def create_song_data(self,wb):
+        if Song.query.count():
+            return
+        target_sheet = wb.sheet_by_name("Songs")
+        keys = [ target_sheet.cell_value(0,i) for i in range(target_sheet.ncols)]
 
-            print('keyword_row["place"] ',keyword_row["place"], 'keyword_row["keyword_en"] ',keyword_row["keyword_en"])
-            k = Keyword(place=str(keyword_row["place"]),
-                        not_trimmed_keyword_en=str(keyword_row["keyword_en"]))
-            db.session.add(k)
+        for row in range(target_sheet.nrows-1):
+            song_row = {}
+            for col, key in enumerate(keys):
+                song_row[key] = target_sheet.cell_value(row+1, col)
+
+            s = Song(title=str(song_row["title"]),
+                    album_id= song_row["album_id"], #int(song_row["album_id"]),
+                    lyric = str(song_row["lyric"]),
+                    type_id = song_row["type_id"]) #int(song_row["type_id"]))
+            db.session.add(s)
+        db.session.commit()
+
+    def create_album_data(self,wb):
+        if Album.query.count():
+            return
+        target_sheet = wb.sheet_by_name("Albums")
+        keys = [ target_sheet.cell_value(0,i) for i in range(target_sheet.ncols)]
+
+        for row in range(target_sheet.nrows-1):
+            album_row = {}
+            for col, key in enumerate(keys):
+                album_row[key] = target_sheet.cell_value(row+1, col)
+
+            s = Album(title=str(album_row["title"]),
+                    photo= str(album_row["photo"]),
+                    description = str(album_row["description"]))
+            db.session.add(s)
+        db.session.commit()
+
+    def create_type_data(self,wb):
+        if Type.query.count():
+            return
+        target_sheet = wb.sheet_by_name("Types")
+        keys = [ target_sheet.cell_value(0,i) for i in range(target_sheet.ncols)]
+
+        for row in range(target_sheet.nrows-1):
+            type_row = {}
+            for col, key in enumerate(keys):
+                type_row[key] = target_sheet.cell_value(row+1, col)
+
+            s = Type(name=str(type_row["name"]),
+                    description = str(type_row["description"]))
+            db.session.add(s)
         db.session.commit()
 
 db.create_all()
 excel_session = Excel()
-excel_session.load_keys(excel_session.load_keyword(excel_session.load_wb(import_xl_path)))
-excel_session.create_keyword_table()
-
-print("excel?")
+excel_session.create_all_data()
+# excel_session.create_keyword_table()
