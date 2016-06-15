@@ -5,9 +5,9 @@ songApp.config([
         $routeProvider.when('/', {
             controller: 'ListController',
             templateUrl: '../static/html/list.html'
-        // }).when('/home', {
-        //     controller: 'HomeCtrl',
-        //     templateUrl: 'common/home.html'
+        }).when('/priority', {
+            controller: 'PriorityControllor',
+            templateUrl: '../static/html/priority.html'
         // }).when('/player-display', {
         //     controller: 'PlayerDisplayCtrl',
         //     controllerAs: 'pCtrl',
@@ -25,22 +25,18 @@ songApp.config([
 ]);
 
 
+songApp.factory('dataStorage', function() {
+     var savedData = {}
+     function set(data) {
+       savedData = data;
+     }
+     function get() {
+      return savedData;
+     }
 
+     return {
+      set: set,
+      get: get
+     }
 
-songApp.controller('FormController2',
-    function($scope,$http)
-    {
-        $scope.modText = "하하하하";
-        $scope.buttonClicked = function()
-        {
-            $scope.modText = "Hello "+$scope.inputText;
-            initPromise = $http.get("/list");
-            initPromise.success(function(data, status, headers, config) {
-                console.log("get!");
-                $scope.modText = data;
-            });
-            initPromise.error(function(data, status, headers, config) {
-            });
-        };
-
-    });
+});

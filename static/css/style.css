@@ -7,7 +7,11 @@
   position: absolute;
   z-index: 2;
   left: 0vw;
-  height: 100%;
+  top: 0vw;
+  height: 70%;
+  width:20%;
+  /*height: 100%;*/
+  /*width:100%;*/
 }
 md-list-item > button {
     width:100%;
