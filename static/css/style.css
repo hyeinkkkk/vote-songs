@@ -13,6 +13,25 @@
   /*height: 100%;*/
   /*width:100%;*/
 }
+.intro-font-color{
+    color: #851B1E;
+}
+
+.font-color-white{
+    color: white;
+    font-weight: bold;
+}
+
+.bg-color{
+    background-color: #F8AB9D;
+}
+
+.intro{
+    background-image:url('/static/images/bg_intro.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
 md-list-item > button {
     width:100%;
 }

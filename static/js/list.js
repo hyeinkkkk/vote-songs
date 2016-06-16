@@ -1,9 +1,12 @@
-songApp.controller('ListController', function($scope,$http,$location,$mdDialog,dataStorage)
+songApp.controller('ListController', function($scope,$http,$location,$mdDialog,dataStorage,$routeParams)
     {
+
         $scope.modText = "Hello ";
         $scope.selectedArr = new Array();
-        maxCount = 3;
+        maxCount = 6;
 
+        playerId = $routeParams['player_id'];
+        console.log("player Id is .... ",playerId);
 
         $http.get("/list")
         .success(function(data,status,headers,config){
@@ -27,11 +30,6 @@ songApp.controller('ListController', function($scope,$http,$location,$mdDialog,d
                 $scope.selectedArr.splice($scope.selectedArr.indexOf(item),1);
                 item.check = false;
             }
-            // else if(item.check && item.priority == $scope.priorityArr){
-            //     item.check = false;
-            //     $scope.selectedArr.pop();
-            //     item.priority = 0;
-            // }
 
             if($scope.selectedArr.length == maxCount){
                 dialogText = ""
@@ -49,7 +47,7 @@ songApp.controller('ListController', function($scope,$http,$location,$mdDialog,d
                     .targetEvent(event)
                 ).then(function() { // 결과 전송(OK)
                     dataStorage.set($scope.selectedArr);
-                    $location.path("/priority");
+                    $location.path("/priority/"+playerId);
                     // $http({
                     //   url: "/submit",
                     //   method: "POST",
