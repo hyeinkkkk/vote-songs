@@ -3,3 +3,5 @@ static/bower_components/
 song-voting.sqlite
 
 import/~$typo_config.xlsx
+
+song-voting.sqlite
