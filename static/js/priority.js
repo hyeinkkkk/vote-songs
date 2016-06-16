@@ -44,7 +44,6 @@ songApp.controller('PriorityControllor', function($scope,$http,$location,$mdDial
                 .targetEvent(event)
             ).then(function() { // 결과 전송(OK)
                 // dataStorage.set($scope.selectedArr);
-                // $location.path("/priority");
                 $http({
                   url: "/submit/"+playerId ,
                   method: "POST",
@@ -53,6 +52,7 @@ songApp.controller('PriorityControllor', function($scope,$http,$location,$mdDial
                 }).success(function(data) {
                   console.log(data)
                 });
+                $location.path("/result/"+playerId);
             }, function() { //다시선택(CANCEL)
                 resetSongs();
             });
