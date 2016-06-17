@@ -32,6 +32,22 @@
     background-size: cover;
 }
 
+.result-default-font{
+    font-size: 5vw;
+}
+
+.result-description-box{
+    width: 80%;
+    background-color: white;
+    border-radius: 10vw;
+    padding: 5vw;
+    margin: 10vw;
+}
+
+.bold-font{
+    font-weight: bold;
+}
+
 md-list-item > button {
     width:100%;
 }

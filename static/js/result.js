@@ -1,12 +1,13 @@
-songApp.controller('ResultControllor', function($scope,$http,$location,$mdDialog)
+songApp.controller('ResultControllor', function($scope,$http,$location,$mdDialog,dataStorage)
 {
-    $scope.enter = function(){
-        $http.get("/add-player/"+$scope.age + "/"+$scope.gender)
-        .success(function(data,status,headers,config){
-            console.log("data??? list ?? ",data.player_id);
-            $location.path("/song-list/"+data.player_id);
-        })
-        .error(function(data, status, headers, config){});
+    $scope.type = dataStorage.get();
+
+    // $scope.type = {id: 2, description: "느슨한 티셔츠 같던 우리 사이를 해결해줄 조개롱", name: "조개롱"}
+    console.log("player Type???? ", $scope.type);
+
+
+    $scope.goHome = function(){
+        $location.path("/");
     }
 
 

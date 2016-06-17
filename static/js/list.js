@@ -1,9 +1,8 @@
-songApp.controller('ListController', function($scope,$http,$location,$mdDialog,dataStorage,$routeParams)
-    {
-
-        $scope.modText = "Hello ";
+songApp.controller('ListController', function($scope,$http,$location,$mdDialog,dataStorage,$routeParams,$sessionStorage)
+{
         $scope.selectedArr = new Array();
-        maxCount = 6;
+        // maxCount = 6;
+        maxCount = 1;
 
         playerId = $routeParams['player_id'];
         console.log("player Id is .... ",playerId);
@@ -46,16 +45,21 @@ songApp.controller('ListController', function($scope,$http,$location,$mdDialog,d
                     .cancel('다시선택')
                     .targetEvent(event)
                 ).then(function() { // 결과 전송(OK)
-                    dataStorage.set($scope.selectedArr);
-                    $location.path("/priority/"+playerId);
-                    // $http({
-                    //   url: "/submit",
-                    //   method: "POST",
-                    //   headers: { 'Content-Type': 'application/json' },
-                    //   data: JSON.stringify($scope.selectedArr)
-                    // }).success(function(data) {
-                    //   console.log(data)
-                    // });
+                    //원래 사용하려던 로직을 살려둔다.
+                    // dataStorage.set($scope.selectedArr);
+                    // $location.path("/priority/"+playerId);
+                    // 원래 로직 끝
+                    $http({
+                      url: "/submit/"+playerId ,
+                      method: "POST",
+                      headers: { 'Content-Type': 'application/json' },
+                      data: JSON.stringify($scope.selectedArr)
+                    }).success(function(data) {
+                      dataStorage.set(data.player_type);
+                      $sessionStorage.type = data.player_type;
+                      $location.path("/result/"+playerId);
+                    });
+
                 }, function() { //다시선택(CANCEL)
                 });
 
@@ -80,13 +84,7 @@ songApp.controller('ListController', function($scope,$http,$location,$mdDialog,d
                 }).success(function(data) {
                   console.log(data)
                 });
-                // initPromise = $http.post("/submit", { data : $scope.priorityArr});
-                // initPromise.success(function(data, status, headers, config) {
-                //     console.log("success!  " , data);
-                //
-                // });
-                // initPromise.error(function(data, status, headers, config) {
-                // });
+
             }else{
                 console.log("cancel");
             }
@@ -121,4 +119,4 @@ songApp.controller('ListController', function($scope,$http,$location,$mdDialog,d
 
 
 
-    });
+});

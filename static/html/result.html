@@ -1,20 +1,41 @@
-<div flex layout="column" class="bg-color">
-    <div layout="column" layout-align="center center">
+<div flex layout="column" class="bg-color" layout-padding>
+    <div layout="column" layout-align="center left" flex="20" layout-padding>
+        <div class="result-default-font bold-font">
+            Thank you for listening
+        </div>
+        <div class="result-default-font">
+            쏠라티의 음악을 사랑하는 당신에게<br>
+            추천하는 와줘서고마워 메뉴는?
+        </div>
+    </div>
+    <div layout="column" flex layout-align="top center" flex="40">
+        <div layout="column">
+            <h1>{{type.name}}</h1>
+        </div>
+        <div layout="column" layout-align="center center" flex class="result-description-box result-default-font" >
+            {{type.description}}
+        </div>
+    </div>
+    <div layout="row" flex="10" layout-align="center center" layout-padding flex="30">
+          <div flex="10">
+              &nbsp;
+          </div>
+          <div layout="column" flex>
+              <md-button class="md-raised md-primary font-color-white md-headline" ng-click="goHome()">공연 나가기</md-button>
+          </div>
+          <div flex="10">
+              &nbsp;
+          </div>
+    </div>
+</div>
+
+
+<!-- <div flex layout="column" class="bg-color" layout-padding>
+    <div layout="column" layout-align="center left">
         <p>
             Thank you for listening<br>
-            쏠라티의 음악을 사랑하는 당신은
-        </p>
-        <h2>화이트셔츠 형</h2>
-        <p>
-            당신은 어깨라인이 드러나는
-            쇄골성애자.
-
-            당신은 성실하고 온화하며
-            협조를 잘하는 스타일 입니다
-
-            블라블라블라
-            (유형 특징)
-
+            쏠라티의 음악을 사랑하는 당신에게<br>
+            추천하는 와줘서고마워 메뉴는?
         </p>
 
         <p>
@@ -40,4 +61,4 @@
               &nbsp;
           </div>
     </div>
-</div>
+</div> -->
