@@ -1,4 +1,4 @@
-var songApp = angular.module('songApp',['ngRoute','ngMaterial']);
+var songApp = angular.module('songApp',['ngRoute','ngMaterial','ngStorage']);
 
 songApp.config([
     "$routeProvider", function($routeProvider) {

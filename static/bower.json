@@ -12,6 +12,7 @@
     "angular-material": "*",
     "angular-material-icons": "*",
     "angular-sanitize": "*",
-    "angular-route": "*"
+    "angular-route": "*",
+    "ngstorage": "*"
   }
 }
