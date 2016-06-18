@@ -21,8 +21,7 @@ def hello_world():
 
 @app.route('/add-player/<age>/<gender>')
 def add_player(age=0,gender=''):
-    print("====== age ? ",age)
-    print("====== gender ? ",gender)
+    print("add player!")
     if age == 0 or gender == '':
         return
     player = models.Player(gender=gender,age=age)
@@ -48,8 +47,8 @@ def get_list():
 @app.route('/submit/<player_id>',methods=["GET", "POST"])
 def submit_voting(player_id):
     if request.method == "POST":
-        print("player id is ",player_id)
-        print("****** data")
+        # print("player id is ",player_id)
+        # print("****** data")
         # for song in request.get_json():
         #     print(" song ", song["priority"] , " : ", song["title"], "song's type_id ? " ,song["type_id"])
         #     new_vote = models.Vote(player_id=player_id,song_id=song["id"],priority=song["priority"])
@@ -59,7 +58,7 @@ def submit_voting(player_id):
         # player_type = common.make_plain_dict(models.Type.query.filter(models.Type.id == song["type_id"]).first())
 
         for song in request.get_json():
-            print(" song ", song["title"], "song's type_id ? " ,song["type_id"])
+            # print(" song ", song["title"], "song's type_id ? " ,song["type_id"])
             new_vote = models.Vote(player_id=player_id,song_id=song["id"],priority=1)
             db.session.add(new_vote)
         db.session.commit()
