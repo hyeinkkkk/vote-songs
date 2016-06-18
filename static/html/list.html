@@ -1,27 +1,29 @@
 
     <div layout="column" flex class="bg-color">
-        <md-subheader class="md-primary bold-font">오늘 공연에서 가장 좋았던 노래 1곡을 선택해주세요</md-subheader>
+        <md-subheader class="md-primary bold-font subheader">오늘 공연에서 가장 좋았던 노래 1곡을 선택해주세요</md-subheader>
         <!-- <md-subheader ng-show="selectedArr.length > 0" class="md-primary">{{selectedArr.length}}개를 선택하셨습니다.</md-subheader> -->
 
-        <md-content flex>
+        <md-content style="background: #F8AB9D;" flex>
             <section>
                 <md-list flex>
                     <md-list-item ng-repeat="item in songs" class="secondary-button-padding"  width="100%">
                       <div layout="row" flex="grow" layout-align="center stretch" layout-padding>
                         <div flex="20" >
-                            <img width="100%" ng-src="{{item.album_photo}}" >
+                            <!-- <img width="100%" ng-src="{{item.album_photo}}" > -->
+                            <img width="100%" ng-src="static/images/album_{{item.album_id}}.jpg" >
                         </div>
                         <div flex="50" ng-click="selectSongs(item,$event)">
                             <img max-height="100%" width="50%" ng-show="item.check" class="select-priority" ng-src="static/images/check-mark.png">
                             <h3 flex>{{ item.title }}</h3>
                         </div>
                         <div flex="30" layout="column" layout-align="center center" >
+                            <md-button ng-click="showAdvanced($event,item)" class="md-raised lyric-button">가사보기</md-button>
                             <!-- <div flex="50" layout="column" layout-align="center center" ng-click="listenToMusic($event)">
                                 <img width="20%" ng-src="static/images/btn_play.png">
-                            </div> -->
+                            </div>
                             <div flex="50" >
                                 <md-button ng-click="showAdvanced($event,item)" class="md-raised">가사보기</md-button>
-                            </div>
+                            </div> -->
                         </div>
                       </div>
 

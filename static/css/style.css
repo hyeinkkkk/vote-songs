@@ -46,6 +46,15 @@ body {
     font-size: 5vw;
 }
 
+.subheader{
+    background: #F36E74 !important;
+    color: black !important;
+}
+.lyric-button{
+    background-color: #F36E74 !important;
+    color: white !important;
+}
+
 .exit-button{
     background-color: #F36E74 !important;
     color: #F9D5DD !important;
