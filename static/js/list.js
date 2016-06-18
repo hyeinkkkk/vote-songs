@@ -33,13 +33,13 @@ songApp.controller('ListController', function($scope,$http,$location,$mdDialog,d
             if($scope.selectedArr.length == maxCount){
                 dialogText = ""
                 angular.forEach($scope.selectedArr , function(song) {
-                    dialogText += song.title + ", ";
+                    dialogText += song.title //+ ", ";
                 });
 
                 $mdDialog.show(
                   $mdDialog.confirm()
                     .title('선택완료!')
-                    .textContent(  dialogText + '결정하셨습니까?')
+                    .textContent(  '"'+ dialogText + '" 로 결정하셨습니까?')
                     .ariaLabel('Primary click demo')
                     .ok('완료')
                     .cancel('다시선택')
@@ -61,6 +61,10 @@ songApp.controller('ListController', function($scope,$http,$location,$mdDialog,d
                     });
 
                 }, function() { //다시선택(CANCEL)
+                    angular.forEach($scope.selectedArr , function(song) {
+                        song.check = false;
+                    });
+                    $scope.selectedArr = [];
                 });
 
 

@@ -1,9 +1,9 @@
 
     <div layout="column" flex class="bg-color">
-        <md-subheader class="md-primary">좋았었던 노래 6곡을 선택해주세요.</md-subheader>
-        <md-subheader ng-show="selectedArr.length > 0" class="md-primary">{{selectedArr.length}}개를 선택하셨습니다.</md-subheader>
+        <md-subheader class="md-primary bold-font">오늘 공연에서 가장 좋았던 노래 1곡을 선택해주세요</md-subheader>
+        <!-- <md-subheader ng-show="selectedArr.length > 0" class="md-primary">{{selectedArr.length}}개를 선택하셨습니다.</md-subheader> -->
 
-        <md-content>
+        <md-content flex>
             <section>
                 <md-list flex>
                     <md-list-item ng-repeat="item in songs" class="secondary-button-padding"  width="100%">
