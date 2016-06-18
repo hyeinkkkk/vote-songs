@@ -1,6 +1,57 @@
 <div layout="column" flex class="bg-color">
-  <div flex="40" layout-padding layout="column" layout-align="center center">
+  <div layout-padding layout="column" layout-align="center center">
       <img width="90%" src="static/images/logo_hello.png">
+  </div>
+  <div layout="row"  layout-padding>
+      <div flex="10">
+          &nbsp;
+      </div>
+      <div layout="column" flex >
+          <md-input-container>
+              <label class="bold-font">나이</label>
+              <md-select ng-model="age">
+                  <md-option ng-repeat="n in [].constructor(60) track by $index" value="{{$index+15}}">{{$index+15}}</md-option>
+              </md-select>
+          </md-input-container>
+      </div>
+        <div flex="10">
+            &nbsp;
+        </div>
+  </div>
+  <div layout="row" layout-padding>
+      <div flex="10">
+          &nbsp;
+      </div>
+      <div layout="column" flex>
+        <md-input-container>
+            <label class="bold-font">성별</label>
+            <md-select ng-model="gender">
+                <md-option value="female">여</md-option>
+                <md-option value="male">남</md-option>
+            </md-select>
+        </md-input-container>
+        </div>
+        <div flex="10">
+            &nbsp;
+        </div>
+  </div>
+  <div layout="row"  layout-padding>
+        <div flex="10">
+            &nbsp;
+        </div>
+        <div layout="column" layout-align="center center" flex>
+            <md-button class="md-raised md-primary next-button" ng-click="enter()">다음</md-button>
+        </div>
+        <div flex="10">
+            &nbsp;
+        </div>
+  </div>
+</div>
+
+
+<!-- <div layout="column" flex class="bg-color">
+  <div flex layout-padding layout="column" layout-align="center center">
+      <img width="200px" src="static/images/logo_hello.png">
   </div>
   <div layout="row" flex="15" layout-padding>
       <div flex="10">
@@ -46,4 +97,4 @@
             &nbsp;
         </div>
   </div>
-</div>
+</div> -->

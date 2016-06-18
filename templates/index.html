@@ -3,7 +3,6 @@
 <html lang="en" ng-app="songApp">
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -12,13 +11,6 @@
     <!-- Custom styles for this template -->
     <link href="static/css/style.css" rel="stylesheet">
 
-    <script>
-      WebFont.load({
-        google: {
-          families: ['Open Sans', 'Oswald']
-        }
-      });
-    </script>
 
     <script src="static/bower_components/angular/angular.js"></script>
     <script src="static/bower_components/angular-route/angular-route.js"></script>
@@ -41,6 +33,7 @@
 
   <body>
       {% raw %}
+
       <div layout="column" layout-fill>
           <div ng-view layout="column" flex scroll-y></div>
       </div>
