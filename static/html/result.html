@@ -10,10 +10,10 @@
     </div>
     <div layout="column"  layout-align="top center">
         <div layout="column">
-            <h2 class="font-color-white">{{type.name}}</h2>
+            <h2 class="font-color-white" ng-bind-html="type.name"></h2>
         </div>
-        <div layout="column" layout-align="center center" flex class="result-description-box result-default-font bold-font" >
-            {{type.description}}
+        <div layout="column" layout-align="center center" flex class="result-description-box result-default-font" ng-bind-html="type.description" >
+
         </div>
 
 

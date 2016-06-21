@@ -19,10 +19,18 @@ body {
   z-index: 2;
   left: 0vw;
   top: 0vw;
+  height: 100%;
+  width:100%;
+}
+
+.select-check{
+  position: absolute;
+  z-index: 2;
+  left: 0vw;
+  top: 0vw;
   height: 70%;
-  width:20%;
-  /*height: 100%;*/
-  /*width:100%;*/
+  width: 100%;
+  padding-top: 2vw;
 }
 .intro-font-color{
     color: #851B1E;
@@ -53,7 +61,7 @@ body {
 }
 
 .subheader{
-    background: #F36E74 !important;
+    background: #F8AB9D !important;
     color: black !important;
 }
 .lyric-button{
@@ -71,10 +79,10 @@ body {
 }
 
 .button-size{
-    border-radius: 5vw;
-    width: 60%;
-    font-weight: bold;
-    font-size: 5vw;
+    border-radius: 5vw !important;
+    width: 60% !important;
+    font-weight: bold !important;
+    font-size: 5vw !important;
 }
 
 .bg-color{
@@ -111,6 +119,10 @@ body {
 .md-select-value :first-child{
     font-size: 5vw;
     font-weight: bold;
+}
+
+.item-padding{
+    padding: 2vw 3vw;
 }
 
 
