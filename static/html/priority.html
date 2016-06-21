@@ -1,32 +1,23 @@
 
-    <div layout="column" flex>
-        <md-subheader class="md-primary">좋았던 순서대로 선택해주세요.</md-subheader>
-        <!-- <md-subheader ng-show="selectedArr.length > 0" class="md-primary">{{priorityArr.length}}개를 선택하셨습니다.</md-subheader> -->
+    <div layout="column" flex class="bg-color">
+        <md-subheader class="bg-color">선택한 곡의 <br>우선순위를 <b>정해주세요</b></md-subheader>
 
-        <md-content>
-            <section>
-                <md-list flex>
-                    <md-list-item ng-repeat="item in songs" class="secondary-button-padding"  width="100%">
-                      <div layout="row" flex="grow" layout-align="center stretch" layout-padding>
-                        <div flex="20" >
-                            <img width="100%" ng-src="{{item.album_photo}}" >
-                        </div>
-                        <div flex="50" ng-click="selectSongs(item,$event)">
-                            <img max-height="100%" width="50%" ng-show="item.check" class="select-priority" ng-src="static/images/ic_friend_{{item.priority}}.svg">
-                            <h3 flex>{{ item.title }}</h3>
-                        </div>
-                        <div flex="30" layout="column" layout-align="center center" >
+        <md-content class="bg-color">
+            <div layout="column" flex class="bg-color" layout-padding >
+                <md-grid-list
+                  md-cols="3"
+                  md-row-height-gt-md="2:2" md-row-height="2:2"
+                  md-gutter="12px" md-gutter-gt-sm="8px" >
+                  <md-grid-tile ng-repeat="item in songs"  ng-click="selectSongs(item,$event)"
+                                style="background-image:url('static/images/album_{{item.album_id}}{{item.check?'':'_gray'}}.png');
+                                    background-repeat: no-repeat;
+                                    background-size: contain;
+                                    background-position-x: 1vw;" >
+                      <img max-height="100%"  width="50%" ng-show="item.priorityCheck" class="select-priority" ng-src="static/images/priority_{{item.priority}}.png">
+                      <h4 align="center" flex style="color:{{item.check ? '#ED5961' : '#595959'}}"  ng-bind-html="item.title"></h4>
+                  </md-grid-tile>
 
-                            <div flex="50" >
-                                <md-button ng-click="showAdvanced($event,item)" class="md-raised">가사보기</md-button>
-                            </div>
-                        </div>
-                      </div>
-
-                      <md-divider ></md-divider>
-                    </md-list-item>
-                </md-list>
-            </section>
-
+              </md-grid-list>
+            </div>
         </md-content>
   </div>
