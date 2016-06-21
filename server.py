@@ -59,7 +59,7 @@ def submit_voting(player_id):
 
         for song in request.get_json():
             # print(" song ", song["title"], "song's type_id ? " ,song["type_id"])
-            new_vote = models.Vote(player_id=player_id,song_id=song["id"],priority=1)
+            new_vote = models.Vote(player_id=player_id,song_id=song["id"],priority=song["priority"])
             db.session.add(new_vote)
         db.session.commit()
 
