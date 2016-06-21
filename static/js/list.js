@@ -1,8 +1,8 @@
-songApp.controller('ListController', function($scope,$http,$location,$mdDialog,dataStorage,$routeParams,$sessionStorage)
+songApp.controller('ListController', function($scope,$http,$location,$mdDialog,dataStorage,$routeParams)
 {
         $scope.selectedArr = new Array();
         // maxCount = 6;
-        maxCount = 1;
+        maxCount = 3;
 
         playerId = $routeParams['player_id'];
         console.log("player Id is .... ",playerId);
@@ -11,6 +11,7 @@ songApp.controller('ListController', function($scope,$http,$location,$mdDialog,d
         .success(function(data,status,headers,config){
             angular.forEach(data.song_list , function(song) {
                 song.check = false;
+                song.title = song.title.replace("\\n","<br>");
             });
             $scope.songs = data.song_list;
             console.log("data??? list ?? ",data);
@@ -33,7 +34,7 @@ songApp.controller('ListController', function($scope,$http,$location,$mdDialog,d
             if($scope.selectedArr.length == maxCount){
                 dialogText = ""
                 angular.forEach($scope.selectedArr , function(song) {
-                    dialogText += song.title //+ ", ";
+                    dialogText += song.title + ", ";
                 });
 
                 $mdDialog.show(
@@ -47,18 +48,19 @@ songApp.controller('ListController', function($scope,$http,$location,$mdDialog,d
                 ).then(function() { // 결과 전송(OK)
                     //원래 사용하려던 로직을 살려둔다.
                     // dataStorage.set($scope.selectedArr);
-                    // $location.path("/priority/"+playerId);
+                    dataStorage.set($scope.songs);
+                    $location.path("/priority/"+playerId);
                     // 원래 로직 끝
-                    $http({
-                      url: "/submit/"+playerId ,
-                      method: "POST",
-                      headers: { 'Content-Type': 'application/json' },
-                      data: JSON.stringify($scope.selectedArr)
-                    }).success(function(data) {
-                      dataStorage.set(data.player_type);
-                      $sessionStorage.type = data.player_type;
-                      $location.path("/result/"+playerId);
-                    });
+                    // $http({
+                    //   url: "/submit/"+playerId ,
+                    //   method: "POST",
+                    //   headers: { 'Content-Type': 'application/json' },
+                    //   data: JSON.stringify($scope.selectedArr)
+                    // }).success(function(data) {
+                    //   dataStorage.set(data.player_type);
+                    //   $sessionStorage.type = data.player_type;
+                    //   $location.path("/result/"+playerId);
+                    // });
 
                 }, function() { //다시선택(CANCEL)
                     angular.forEach($scope.selectedArr , function(song) {

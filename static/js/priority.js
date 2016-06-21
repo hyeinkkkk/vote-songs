@@ -1,7 +1,7 @@
 songApp.controller('PriorityControllor', function($scope,$http,$location,$mdDialog,dataStorage,$routeParams)
 {
 
-    maxCount = 6;
+    maxCount = 3;
 
     playerId = $routeParams['player_id'];
     console.log("player id is .... ",playerId);
@@ -9,7 +9,7 @@ songApp.controller('PriorityControllor', function($scope,$http,$location,$mdDial
     resetSongs = function(){
         $scope.priorityArr = new Array();
         angular.forEach(dataStorage.get() , function(song) {
-            song.check = false;
+            song.priorityCheck = false;
             song.priority = 0;
         });
     }
@@ -18,14 +18,18 @@ songApp.controller('PriorityControllor', function($scope,$http,$location,$mdDial
     $scope.songs = dataStorage.get();
 
     $scope.selectSongs = function(item,event){
-        if(!item.check){
-            item.check = true;
+        if(!item.check)
+            return;
+
+        if(!item.priorityCheck){
+            item.priorityCheck = true;
             $scope.priorityArr.push(item);
             item.priority = $scope.priorityArr.length;
-        }else if(item.check && item.priority == $scope.priorityArr.length){
-            item.check = false;
-            $scope.priorityArr.pop();
+        }else if(item.priorityCheck && item.priority == $scope.priorityArr.length){
+            item.priorityCheck = false;
             item.priority = 0;
+            $scope.priorityArr.pop();
+
         }
 
         if($scope.priorityArr.length == maxCount){
@@ -50,9 +54,10 @@ songApp.controller('PriorityControllor', function($scope,$http,$location,$mdDial
                   headers: { 'Content-Type': 'application/json' },
                   data: JSON.stringify($scope.priorityArr)
                 }).success(function(data) {
-                  console.log(data)
+                    dataStorage.set(data.player_type);
+                    // $sessionStorage.type = data.player_type;
+                    $location.path("/result/"+playerId);
                 });
-                $location.path("/result/"+playerId);
             }, function() { //다시선택(CANCEL)
                 resetSongs();
             });
