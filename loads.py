@@ -1,8 +1,8 @@
 # coding:UTF-8
 from os import path
 from xlrd import open_workbook
-from models import Song,Album,Type
-from server import db,app
+from .models import Song,Album,Type
+from .server import db,app
 
 
 xl_path = '/import/song_data.xlsx'
