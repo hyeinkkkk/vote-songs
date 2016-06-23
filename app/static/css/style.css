@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+/*@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
 
 body {
     font-family: 'Nanum Gothic', serif !important;
@@ -8,7 +8,7 @@ body {
       -moz-user-select: none;
       -ms-user-select: none;
       user-select: none;
-}
+}*/
 
 .starter-template {
   padding: 40px 15px;
@@ -87,6 +87,12 @@ body {
 
 .bg-color{
     background-color: #F8AB9D;
+}
+
+.result-div{
+    background-image:url('/static/images/bg_result.png');
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .intro{
