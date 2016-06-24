@@ -2,7 +2,7 @@ var songApp = angular.module('songApp',['ngRoute','ngMaterial','ngSanitize']);
 
 songApp.config([
     "$routeProvider", function($routeProvider) {
-        $routeProvider.when('/', {
+        $routeProvider.when('/a', {
             controller: 'IntroControllor',
             templateUrl: '../static/html/intro.html'
         }).when('/personal-data', {
@@ -18,7 +18,7 @@ songApp.config([
             controller: 'ResultControllor',
             templateUrl: '../static/html/result.html'
         }).otherwise({
-            redirectTo: "/"
+            redirectTo: "/personal-data"
         });
     }
 ]);
