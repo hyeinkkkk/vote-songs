@@ -10,6 +10,9 @@ body {
       user-select: none;
 }*/
 
+.bg-personal-data{
+    background-color:  #EE5762;
+}
 .starter-template {
   padding: 40px 15px;
   text-align: center;
@@ -111,14 +114,16 @@ body {
     background-color: white;
     border-radius: 10vw;
     padding: 5vw;
-    margin: 10vw;
+    color: #7F7F7F;
+    /*margin: 10vw;*/
 }
 
 .bold-font{
     font-weight: bold;
 }
 .md-select-value .md-select-icon{
-    color : #EE5762 !important;
+    /*color : #EE5762 !important;*/
+    color : #F9D5DD !important;
     font-size: 10vw;
 }
 
@@ -131,6 +136,15 @@ body {
     padding: 2vw 3vw;
 }
 
+.md-select-value :first-child {
+    font-size: 5vw;
+    font-weight: bold;
+    color: white;
+}
+
+md-input-container:not(.md-input-invalid).md-input-has-value label {
+    color: white;
+}
 
 md-list-item > button {
     width:100%;
