@@ -37,8 +37,8 @@ body {
 }
 
 .font-color-white{
-    color: white;
-    font-weight: bold;
+    color: white !important;
+    font-weight: bold !important;
 }
 .intro-font-margin{
     margin-top: 0vw;
