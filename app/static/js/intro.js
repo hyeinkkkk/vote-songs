@@ -4,7 +4,7 @@ songApp.controller('IntroControllor', function($scope,$http,$location,)
         $location.path("/personal-data");
     };
 
-    angular.element("#letter").css("color:white;")
+    angular.element("#letter").css("color","white");
 
 
 
