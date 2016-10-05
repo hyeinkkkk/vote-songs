@@ -65,7 +65,7 @@ songApp.config(['$translateProvider', function ($translateProvider) {
     'ok': 'ok',
     'prioritise': 'Please prioritize your choices.',
     'leave_the_concert' : 'cancel',
-    'your_choice_is':'You, who just fell in love with Solati’s music, are'
+    'your_choice_is':'What kind of person are you among Solati?'
   });
 
   $translateProvider.translations('ko', {
