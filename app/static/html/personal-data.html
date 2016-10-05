@@ -2,13 +2,13 @@
   <div layout-padding layout="column" layout-align="center center">
       <img width="90%" src="static/images/logo_hello.png">
   </div>
-  <div layout="row"  layout-padding>
+  <div layout="row">
       <div flex="10">
           &nbsp;
       </div>
       <div layout="column" flex >
           <md-input-container>
-              <label class="bold-font ">나이</label>
+              <label class="bold-font ">나이<br> Age</label>
               <md-select ng-model="age">
                   <md-option ng-repeat="n in [].constructor(60) track by $index" value="{{$index+15}}">{{$index+15}}</md-option>
               </md-select>
@@ -18,16 +18,16 @@
             &nbsp;
         </div>
   </div>
-  <div layout="row" layout-padding>
+  <div layout="row">
       <div flex="10">
           &nbsp;
       </div>
       <div layout="column" flex>
         <md-input-container>
-            <label class="bold-font">성별</label>
+            <label class="bold-font">성별<br> Gender</label>
             <md-select ng-model="gender">
-                <md-option value="female">여</md-option>
-                <md-option value="male">남</md-option>
+                <md-option value="female">여(female)</md-option>
+                <md-option value="male">남(male)</md-option>
             </md-select>
         </md-input-container>
         </div>
@@ -35,7 +35,25 @@
             &nbsp;
         </div>
   </div>
-  <div layout="row"  layout-padding>
+
+    <div layout="row">
+      <div flex="10">
+          &nbsp;
+      </div>
+      <div layout="column" flex>
+        <md-input-container>
+            <label class="bold-font">언어<br> Language</label>
+            <md-select ng-model="language">
+                <md-option value="ko">한국어</md-option>
+                <md-option value="en">English</md-option>
+            </md-select>
+        </md-input-container>
+        </div>
+        <div flex="10">
+            &nbsp;
+        </div>
+    </div>
+  <div layout="row">
         <div flex="10">
             &nbsp;
         </div>

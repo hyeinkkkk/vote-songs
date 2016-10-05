@@ -3,17 +3,16 @@
         <div class="result-default-font bold-font" style="color: #EE5762;">
             Thank you for listening
         </div>
-        <div>
-            쏠라티의 음악을 사랑하는 당신에게<br>
-            추천하는 와줘서고마워 메뉴는?
+        <div ng-bind-html="'your_choice_is' | translate">
+
         </div>
     </div>
     <div layout="column"  layout-align="top center">
         <div layout="column">
-            <h2 class="bold-font" ng-bind-html="type.name"></h2>
+            <h2 class="bold-font" ng-bind-html="type['name_'+language]"></h2>
         </div>
-        <div layout="column" layout-align="center center" flex align="center" class="result-description-box result-default-font" ng-bind-html="type.description" >
-
+        <div layout="column" layout-align="center center" flex align="center" class="result-description-box result-default-font" >
+            <p ng-bind-html="type['description_'+language]"></p>
         </div>
 
 
@@ -23,7 +22,7 @@
               &nbsp;
           </div>
           <div layout="column" flex layout-align="center center">
-              <md-button class="md-raised md-primary exit-button" ng-click="goHome()">공연 나가기</md-button>
+              <md-button class="md-raised md-primary exit-button" ng-click="goHome()">{{'leave_the_concert'|translate}}</md-button>
           </div>
           <div flex="10">
               &nbsp;

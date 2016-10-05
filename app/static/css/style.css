@@ -66,6 +66,7 @@ body {
 .subheader{
     background: #F8AB9D !important;
     color: black !important;
+    padding: 15px;
 }
 .lyric-button{
     background-color: #F36E74 !important;
@@ -144,6 +145,7 @@ body {
 
 md-input-container:not(.md-input-invalid).md-input-has-value label {
     color: white;
+    margin-bottom: -15px;
 }
 
 md-list-item > button {

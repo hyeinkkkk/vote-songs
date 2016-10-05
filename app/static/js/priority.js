@@ -1,8 +1,9 @@
-songApp.controller('PriorityControllor', function($scope,$http,$location,$mdDialog,dataStorage,$routeParams)
+songApp.controller('PriorityControllor', function($scope,$http,$location,$mdDialog,dataStorage,$routeParams,$translate)
 {
 
     maxCount = 3;
 
+    $scope.language = $translate.use();
     playerId = $routeParams['player_id'];
     console.log("player id is .... ",playerId);
 
@@ -35,32 +36,36 @@ songApp.controller('PriorityControllor', function($scope,$http,$location,$mdDial
         if($scope.priorityArr.length == maxCount){
             dialogText = ""
             angular.forEach($scope.priorityArr , function(song) {
-                dialogText +=  song.priority + "." + song.title + ", ";
+                dialogText +=  song.priority + "." + song['title_'+$translate.use()] + ", ";
             });
 
-            $mdDialog.show(
-              $mdDialog.confirm()
-                .title('선택완료!')
-                .textContent(  dialogText + '결정하셨습니까?')
-                .ariaLabel('Primary click demo')
-                .ok('완료')
-                .cancel('다시선택')
-                .targetEvent(event)
-            ).then(function() { // 결과 전송(OK)
-                // dataStorage.set($scope.selectedArr);
-                $http({
-                  url: "/submit/"+playerId ,
-                  method: "POST",
-                  headers: { 'Content-Type': 'application/json' },
-                  data: JSON.stringify($scope.priorityArr)
-                }).success(function(data) {
-                    dataStorage.set(data.player_type);
-                    // $sessionStorage.type = data.player_type;
-                    $location.path("/result/"+playerId);
+            $translate(['select_complete','choice_done','try_again','ok']).then(function (translations) {
+
+                $mdDialog.show(
+                  $mdDialog.confirm()
+                    .title(translations.choice_done)
+                    .textContent('"'+ dialogText + '"' + translations.select_complete)
+                    .ariaLabel('Primary click demo')
+                    .ok(translations.ok)
+                    .cancel(translations.try_again)
+                    .targetEvent(event)
+                ).then(function() { // 결과 전송(OK)
+                    $http({
+                      url: "/submit/"+playerId ,
+                      method: "POST",
+                      headers: { 'Content-Type': 'application/json' },
+                      data: JSON.stringify($scope.priorityArr)
+                    }).success(function(data) {
+                        dataStorage.set(data.player_type);
+                        // $sessionStorage.type = data.player_type;
+                        $location.path("/result/"+playerId);
+                    });
+
+
+                }, function() { //다시선택(CANCEL)
+                    resetSongs();
+                    });
                 });
-            }, function() { //다시선택(CANCEL)
-                resetSongs();
-            });
 
 
         }

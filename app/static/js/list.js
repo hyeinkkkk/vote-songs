@@ -1,9 +1,10 @@
-songApp.controller('ListController', function($scope,$http,$location,$mdDialog,dataStorage,$routeParams)
+songApp.controller('ListController', function($scope,$http,$location,$mdDialog,dataStorage,$routeParams,$translate)
 {
         $scope.selectedArr = new Array();
         // maxCount = 6;
         maxCount = 3;
 
+        $scope.language = $translate.use();
         playerId = $routeParams['player_id'];
         console.log("player Id is .... ",playerId);
 
@@ -11,13 +12,12 @@ songApp.controller('ListController', function($scope,$http,$location,$mdDialog,d
         .success(function(data,status,headers,config){
             angular.forEach(data.song_list , function(song) {
                 song.check = false;
-                song.title = song.title.replace("\\n","<br>");
+                song['title_'+$translate.use()] = song['title_'+$translate.use()].replace("\\n","<br>");
             });
             $scope.songs = data.song_list;
             console.log("data??? list ?? ",data);
         })
         .error(function(data, status, headers, config){});
-
 
 
         $scope.selectSongs = function(item,event){
@@ -34,33 +34,24 @@ songApp.controller('ListController', function($scope,$http,$location,$mdDialog,d
             if($scope.selectedArr.length == maxCount){
                 dialogText = ""
                 angular.forEach($scope.selectedArr , function(song) {
-                    dialogText += song.title + ", ";
+                    dialogText += song['title_'+$translate.use()] + ", ";
                 });
 
-                $mdDialog.show(
+
+                $translate(['select_complete','choice_done','try_again','ok']).then(function (translations) {
+
+                    $mdDialog.show(
                   $mdDialog.confirm()
-                    .title('선택완료!')
-                    .textContent(  '"'+ dialogText + '" 로 결정하셨습니까?')
+                    .title(translations.choice_done)
+                    .textContent('"'+ dialogText + '"' + translations.select_complete)
                     .ariaLabel('Primary click demo')
-                    .ok('완료')
-                    .cancel('다시선택')
+                    .ok(translations.ok)
+                    .cancel(translations.try_again)
                     .targetEvent(event)
                 ).then(function() { // 결과 전송(OK)
-                    //원래 사용하려던 로직을 살려둔다.
-                    // dataStorage.set($scope.selectedArr);
                     dataStorage.set($scope.songs);
                     $location.path("/priority/"+playerId);
-                    // 원래 로직 끝
-                    // $http({
-                    //   url: "/submit/"+playerId ,
-                    //   method: "POST",
-                    //   headers: { 'Content-Type': 'application/json' },
-                    //   data: JSON.stringify($scope.selectedArr)
-                    // }).success(function(data) {
-                    //   dataStorage.set(data.player_type);
-                    //   $sessionStorage.type = data.player_type;
-                    //   $location.path("/result/"+playerId);
-                    // });
+
 
                 }, function() { //다시선택(CANCEL)
                     angular.forEach($scope.selectedArr , function(song) {
@@ -68,6 +59,9 @@ songApp.controller('ListController', function($scope,$http,$location,$mdDialog,d
                     });
                     $scope.selectedArr = [];
                 });
+                 });
+
+
 
 
             }

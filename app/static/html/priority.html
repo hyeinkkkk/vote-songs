@@ -1,6 +1,6 @@
 
     <div layout="column" flex class="bg-color">
-        <md-subheader class="bg-color">선택한 곡의 <br>우선순위를 <b>정해주세요</b></md-subheader>
+        <md-subheader class="bg-color" ng-bind-html="'prioritise' | translate" style="padding:15px;"></md-subheader>
 
         <md-content class="bg-color">
             <div layout="column" flex class="bg-color" layout-padding >
@@ -14,7 +14,7 @@
                                     background-size: contain;
                                     background-position-x: 1vw;" >
                       <img max-height="100%"  width="50%" ng-show="item.priorityCheck" class="select-priority" ng-src="static/images/priority_{{item.priority}}.png">
-                      <h4 align="center" flex style="color:{{item.check ? '#ED5961' : '#595959'}}"  ng-bind-html="item.title"></h4>
+                      <h4 align="center" flex style="color:{{item.check ? '#ED5961' : '#595959'}}"  ng-bind-html="item['title_'+language]"></h4>
                   </md-grid-tile>
 
               </md-grid-list>

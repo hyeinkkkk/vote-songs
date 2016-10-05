@@ -1,4 +1,4 @@
-var songApp = angular.module('songApp',['ngRoute','ngMaterial','ngSanitize']);
+var songApp = angular.module('songApp',['ngRoute','ngMaterial','ngSanitize','pascalprecht.translate']);
 
 songApp.config([
     "$routeProvider", function($routeProvider) {
@@ -54,3 +54,30 @@ songApp.factory('dataStorage', function() {
      }
 
 });
+
+
+songApp.config(['$translateProvider', function ($translateProvider) {
+  $translateProvider.translations('en', {
+    'list_description': '<b>Please choose 3 songs that you enjoyed most.</b>',
+    'choice_done': 'Done!',
+    'select_complete' : 'is your choice. Are you sure?',
+    'try_again': 'Try Again',
+    'ok': 'ok',
+    'prioritise': 'Please prioritize your choices.',
+    'leave_the_concert' : 'cancel',
+    'your_choice_is':'You, who just fell in love with Solati’s music, are'
+  });
+
+  $translateProvider.translations('ko', {
+    'list_description': '오늘 공연 중,<br><b>가장 좋았던 노래 3곡을 선택해주세요.</b>',
+    'choice_done': '선택완료!',
+    'select_complete' : '로 결정하시겠습니까?',
+    'try_again': '다시 선택',
+    'ok': '완료',
+    'prioritise': '선택한 곡의 <br>우선순위를 <b>정해주세요</b>',
+    'leave_the_concert' : '공연 나가기',
+    'your_choice_is':'쏠라티의 음악을 사랑하는 당신은?'
+  });
+
+  $translateProvider.preferredLanguage('ko');
+}]);
