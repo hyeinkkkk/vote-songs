@@ -5,3 +5,7 @@ song-voting.sqlite
 import/~$typo_config.xlsx
 
 song-voting.sqlite
+
+.idea/*
+app/static/bower_components/*
+screenshot/*
