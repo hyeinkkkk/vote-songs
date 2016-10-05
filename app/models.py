@@ -7,16 +7,19 @@ class Player(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     gender = db.Column(db.String)
     age = db.Column(db.Integer)
+    type_id = db.Column(db.Integer, db.ForeignKey('types.id'), default=None)
     create_time = db.Column(db.DateTime, default=datetime.now)
     update_time = db.Column(db.DateTime)
+
 
 class Song(db.Model):
     __tablename__ = 'songs'
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String)
+    title_ko = db.Column(db.String)
+    title_en = db.Column(db.String)
     album_id = db.Column(db.Integer, db.ForeignKey('albums.id'))
     lyric = db.Column(db.String)
-    type_id = db.Column(db.Integer)
+    type_id = db.Column(db.Integer, db.ForeignKey('types.id'))
 
     # album = db.relationship("Album", backref=db.backref("songs", order_by=id))
 
@@ -44,5 +47,7 @@ class Vote(db.Model):
 class Type(db.Model):
     __tablename__ = 'types'
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String)
-    description = db.Column(db.String)
+    name_ko = db.Column(db.String)
+    name_en = db.Column(db.String)
+    description_ko = db.Column(db.String)
+    description_en = db.Column(db.String)

@@ -42,7 +42,8 @@ class Excel(metaclass=Singleton):
             for col, key in enumerate(keys):
                 song_row[key] = target_sheet.cell_value(row+1, col)
 
-            s = Song(title=str(song_row["title"]),
+            s = Song(title_ko=str(song_row["title_ko"]),
+                     title_en=str(song_row["title_en"]),
                     album_id= song_row["album_id"], #int(song_row["album_id"]),
                     lyric = str(song_row["lyric"]),
                     type_id = song_row["type_id"]) #int(song_row["type_id"]))
@@ -77,8 +78,10 @@ class Excel(metaclass=Singleton):
             for col, key in enumerate(keys):
                 type_row[key] = target_sheet.cell_value(row+1, col)
 
-            s = Type(name=str(type_row["name"]),
-                    description = str(type_row["description"]))
+            s = Type(name_ko=str(type_row["name_ko"]),
+                     name_en=str(type_row["name_en"]),
+                     description_ko=str(type_row["description_ko"]),
+                     description_en=str(type_row["description_en"]))
             db.session.add(s)
         db.session.commit()
 
