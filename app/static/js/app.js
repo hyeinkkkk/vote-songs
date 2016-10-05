@@ -64,7 +64,7 @@ songApp.config(['$translateProvider', function ($translateProvider) {
     'try_again': 'Try Again',
     'ok': 'ok',
     'prioritise': 'Please prioritize your choices.',
-    'leave_the_concert' : 'cancel',
+    'leave_the_concert' : 'EXIT',
     'your_choice_is':'What kind of person are you among Solati?'
   });
 
